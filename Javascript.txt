@@ -1,0 +1,295 @@
+Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP
+
+
+- IMPORTANT: Always put the script tag at the end of the HTML document. Otherwise the JS gets executed before it reaches the HTML part.
+
+- Everything in Javascript happens inside an Execution Context. (Imagine Execution Context is a big box in which whole js code is executed)
+
+    - 2 components:
+        - Memory component (Variable Environment) - Variables and functions stored as a key value pair.
+        - Code component (Thread of Execution) - Where code is executed one line at a time.
+
+
+- Javascript is a SYNCHRONOUS, SINGLE-THREADED language.
+
+- Javascript is a LOOSELY/WEAKLY TYPED language. (Performs type conversions, eg. trying to add 5 (num) and "10" (str) results in "510" (str) and not 15 (num))
+
+- Javascript is a DYNAMICALLY TYPED language. (Allows variables to change type during runtime)
+
+- Javascript uses JIT (Just In Time) Compilation method.
+
+
+- JS executes the code in 2 phases, Memory Creation phase and Code Execution phase.
+
+    - In the first phase:
+
+        - JS skims through the whole program line by line and allocates memory to all variables and functions.
+        - When reserving memory for a variable, it is first allocated the value of 'undefined' (Its like a placeholder/ special value)
+        - When reserving memory for a function, the whole function code is stored into the memory space.
+        - For a variable assigned with a function, 'undefined' value is allocated. (eg. 'var test = square(4), 'test' is allocated with 'undefined')
+
+    - In the second phase:
+
+        - When JS runs 'n=2' statement, the value 2 is assigned to 'n' (Earlier in the first phase it was 'undefined')
+
+
+- When a function is invoked, since its like a mini program, a new Execution Context is created.
+- The return statement takes back the control to where the function was invoked.
+- After the function execution, the Execution Context of that function gets deleted.
+- After the program is finished, the global Execution Context gets deleted. 
+
+
+- Call Stack: 
+
+    - Used for managing Execution Contexts. Call Stack maintains the order of execution of ECs'. Whenever EC is created it gets pushed into the stack and whenever EC is deleted it'll move out of the stack.
+    - Eg. When a program is run, Global EC goes into Call Stack, then if there is a function, its EC goes into the Call Stack, after function execution the EC for function is popped 
+        out of the Call Stack, all functions are carried out like this, after whole program execution the Global EC also gets popped out of the Call Stack and becomes empty.
+    - After the program the Global EC also gets deleted from the stack and become empty.
+    - Call Stack is also known as: Execution Context Stack, Program Stack, Control Stack, Runtime Stack, Machine Stack etc.
+
+
+- Hoisting in JS:
+
+    - Happens during the first phase (Memory Creation)
+    - If you try to access variables in the first line of the program, it'll show 'undefined', in case of function it works (because in Memory Creation phase variables 
+        are allocated with 'undefined' value 
+        and functions have the whole function as the value itself)
+    - Variable declarations (var) are moved to the top of the scope assigned with a value of 'undefined'.
+    - Variable declarations (let & const) are moved to a place called Temporal Dead Zone (TDZ), and trying to access it caused ReferenceError.
+    - Trying to access uninitialized (not unassigned) variables will cause a ReferenceError.
+
+
+- Functions in JS: [pgm 1.1]
+
+    - Execution Context is created for each function run, if you try to access a variable inside a function, search happens in local scope inside the function first, 
+        if not found then outer scope is searched until it reaches global scope. (ps. If variable is not found anywhere a ReferenceError is shown.)
+     
+
+- Shortest JS program (An empty file) [pgm 1.2]
+
+    - Global Execution Context is created, sets up the memory space even though there is no code to execute.
+    - Global object ('window' in browser, 'global' in Node.js etc.) is created (along with the global EC) in globalspace by JS engine. Also creates 'this' keyword.
+    - Whenever you create an EC, a 'this' is also created. (for functional ECs', global ECs' etc.)
+    - In global level/EC, 'this' points to 'global' object. ('window' in case of browsers) (this === window)
+    - Whenever creating a variable, it gets attached to the 'global' object.
+
+    PS. Global space: Anything that is not inside a function.
+
+
+- undefined vs not defined:
+
+    - 'undefined' is a placeholder value put into the variable in the Memory Creation phase of Global EC. (undefined DOES NOT mean empty)
+    - 'undefined' also appears when we declare a variable but not assign a value to it (eg. var a;)
+    - 'not defined' means the variable is not declared. (eg. trying to access variable 'a' when a is nowhere in the program)
+
+
+- Scope in JS: [pgm 1.3]
+
+    - Scope means from where you can access a variable.
+    - You can access variables from local to outer scopes in hierarchy. Not vice versa (from outer/global to inner scopes)
+    - If a variable is not found on the current function scope, searching goes to the lexical environment of the said function scope's parent,
+        until it reaches the global scope if necessary. This process is called a SCOPE CHAIN.
+
+
+- TEMPORAL DEAD ZONE:
+
+    - TDZ is the period where variables declared with 'let' and 'const' exist but cannot be accessed or asssigned any value. 
+    - When trying to access a variable in TDZ, you will get a ReferenceError.
+    - TDZ ends when a value is assigned to the variable.
+    - To avoid TDZ, always push the declarations and initializations to the top of the code. That way we are shrinking the TDZ to zero.
+
+
+- LET and CONST:
+
+    - Introduced in ES6 (ECMAScript 2015)
+    - TDZ is only applicable for 'let' and 'const' variables.
+    - You cannot re-declare a 'let' variable. It throws a SyntaxError.
+    - You cannot just declare a 'const' variable unlike 'var' and 'let'. (const a; throws SyntaxError). You should assign a value to it along with its declaration.
+    - Use 'const' if possible if not use 'let' because of the strictness of it compared to 'var'. 'var' is not typically used in day-to-day coding scenarios.
+
+
+- Types of ERRORS:
+
+    - ReferenceError: When trying to access a variable that can't be found or declared. Variables in TDZ also throws this error.
+    - SyntaxError: When the code has any incorrect syntaxes.
+    - TypeError: Thrown when trying to perform an operation that cannot be done, because the value in the operation is not of the expected type.
+
+
+- BLOCK & BLOCK SCOPE: [pgm 1.4]
+
+    - Block: Also known as 'Compound Statements', are used to group zero or more statements where JS ony expects one statement. Given inside a pair of curly braces.
+    - Block Scope: What all variables and functions we can access inside this block.
+    - 'let' and 'const' are block scoped. One cannot access these variables from outside the block. But 'var' can be
+        accessed from anywhere. (Even outside the block where the variable was declared)
+    - Block scope follows lexical scoping.
+ 
+
+ - SHADOWING in JS:
+
+    - When a variable is declared in a block scope and the same variable is defined in the outer scope, when we access the variable inside the block scope, the value of
+        the variable inside the block scope is whats stored in the variable. This is called Shadowing. The inner scope variable is shadowing the outer scope variable.
+    - While shadowing a variable, it should not cross the boundary of the scope. ie. a 'let' variable can shadow a 'var' variable but vice versa is not possible. Because
+        'var' variable's scope extends and goes beyond the current block. It will throw an error saying 'variable is already defined'.
+
+
+- CLOSURES:
+
+    - A function bundled together with its lexical environment forms a Closure.
+    - When a function is returned (return function() {...}), the returned function has access to its Closure. The returned function can access the variables and parameters from the parent/s
+        function, even after the parent function has finished executing and no trace of it is in the Execution Context.
+    - Uses of Closures:
+        - Module Design Pattern
+        - Currying
+        - Functions like 'once'
+        - Memoize
+        - Maintaining state in async world
+        - setTimeouts
+        - Iterators
+        - and many more...
+
+
+- setTimeout function: waits for the time given, after the timer expires the function gets pushed into the call stack.
+
+- Data Hiding / Data Privacy / Encapsulation: We can encapsulate the data so that it can't be accessed by other functions or parts of the program.
+
+- Constructor Functions
+
+- Garbage Collector: JS engine (browser/ server) frees the variables when they are not used anymore. This is called Garbage Collection. 
+
+
+- ABOUT FUNCTIONS: [pgm 1.5]
+
+- Function Statements / Function Declaration:
+
+    - The way of declaring a function with a 'function' keyword.
+    - Hoisted normally (During memory creation phase, function itself is stored in memory)
+
+
+- Function Expression:
+
+    - The way of declaring functions as part of an expression.
+    - Hoisted as a variable.   
+
+
+- Anonymous Function:
+
+    - A function without a name. Used when the function is used as a value. (To assign to a variable as a value) 
+    - Cannot use it as a function statement as it will throw an error saying that the function statement should have a name.
+    - You can use an Anonymous Function in a function expression, but not in a function statement.
+
+
+- Named Function Expression:
+
+    - Function Expressions which has a function name.
+    - Cannot access using the function name in Global scope.
+
+
+- Parameters and Arguments: Parameters are used on function creation and Arguments are the real world values that we pass to the function.
+
+
+- First Class Functions:
+
+    - Also referred to as First Class Citizens.
+    - Because functions are treated like other variables. (This ability is not exclusive to JS)
+    - Functions can be used as values, passed as an argument to another function, can be returned from functions etc.
+
+
+- Arrow Functions:
+
+    - Introduced in ES6 (ECMAScript 2015)
+
+
+- Callback Functions:
+
+    - A callback is a function passed as an argument to another function.
+    - JS is a synchronous and single-threaded language, but callbacks helps us to do asynchronous tasks.
+    - We should do async operations for tasks that take time so that heavy tasks don't block the main thread.
+
+
+- Issues with Callbacks:
+
+    - Callback Hell:
+        - Nested callbacks stacked below one another forms Callback Hell. Every callbacks waits/depends on the previous callback.
+        - Its unreadable and maintainable.
+
+    - Inversion of Control:
+        - The concept is that we lose control of the program because we pass a callback function to another function. So now we've given the 
+            control of our function to another function. We don't know that our function will ever execute or not.
+
+
+- Disadvantage of having too many event listeners:
+
+    - If there are a lot of event listeners, they are removed from the code because it is heavy. Why? Because in an event listener, 
+        when a callback function inside the event listener forms a closure (not always), that causes the memory to be kept even after the event listener 
+        has finished executing, we don't know when a user would perform that particular event. That uncertainity makes it challenging for the JS engine to 
+        determine whether its safe to release the memory assosiated with the event listeners and their associated closures. Thats why event listeners are heavy. 
+        When there is a lot of events like click, hover etc. in the page, it can become too heavy, can cause memory leaks and slow down the site making the user experience bad.
+
+    - A good practice is to remove event listeners, so that all the variables held by this closure gets garbage collected.
+
+
+- Web APIs: To do complicated tasks
+- window is a global object which is specific to browsers (there is no window object in Node.js)
+- Functions like setTimeout, console.log, fetch etc. are the properties of 'window' object. 
+- It should be like window.console.log, window.setTimeout, but you don't need to explicitly write 'window' everytime because the browser assumes that you're referencing to the 
+    properties of the 'window' object by default, making the code shorter and easier to read.
+
+
+- Callback Queue aka Task Queue: 
+
+    - Mechanism used by JS to handle runtime asynchronous tasks.
+    - setTimeout, DOM APIs etc. goes into Callback Queue. 
+
+
+- Event Loop: 
+
+    The Event Loop acts as a gatekeeper, it checks the callback queue, if it has something, it pushes that into the Call Stack.
+
+
+- Microtask Queue: 
+
+    - Higher priority than Callback Queue.
+    - Promises, mutation observer goes into Microtask Queue.
+
+
+- Starvation in JS: 
+
+    Starvation occurs when a series of microtasks continuously execute from the microtask queue, preventing the tasks in Callback Queue from running. This is due 
+        to Event Loop prioritizing Microtask Queue over the Callback Queue.
+
+
+- JS Engine phases: CODE -> PARSING -> COMPILING -> EXECUTION
+
+- Interpreter (Fast): Executes a program LINE BY LINE.
+
+- Compiler (Efficient): Whole code is translated into machine code or intermediate code before execution.
+
+- JIT Compilation: Best of both worlds as it uses Interpreter as well as compiler.
+
+- Mark and Sweep Algorithm: When an object is created it has the mark value as false, then the garbage collector scan happens from root (global) 
+    and all the rechable objects is set with the mark value of 'true'. In sweep phase, all the objects which has mark value 'false' will be garbage collected.
+
+- DO NOT block the main thread, if there is a function wating to execute in the Callback Queue, it will only get executed once the Call Stack is empty.
+    (eg. if there is a setTimeout function which has 3 sec waiting period, if the main thread execution took 10 sec, the setTimeout will only print after the 10 secs 
+    even if the timer of the setTimeout expired long ago.)
+
+
+- Promises:
+
+    - MDN defenition: A Promise is an object representing the eventual completion or failure of an asynchronous operation.
+    - Used to handle async operations in JS.
+    - Promises help us resolve the problem of 'Callback Hell' and 'Inversion of Control'.
+    - When a promise is created, an object is created without any data (value is 'undefined'). Later when the promise is resolved, (like receiving response 
+        from an API request) the data is stored into the object. 
+    - A Promise is in one of these states:
+        pending -> result = undefined
+        fulfilled -> result = value
+        rejected -> result = error object
+    - A Promise is only fired once, whereas nested callbacks may run unpredictably (once, twice, or not at all). So, Promise provides us this guarantee and 
+        control over the flow of execution.
+    - Promise objects are immutable.
+    - Promises allow you to chain multiple asynchronous operations using .then() and .catch() methods. Chaining simplifies code structure and reducing callback nesting, making 
+        the code more manageable and easier to understand.
+    - Whenever there is a Promise inside a Promise chain, you may need to return that Promise again into the chain to ensure that data is not lost. This ensures 
+        proper chaining and maintains the flow of data within the chain.
+ 
