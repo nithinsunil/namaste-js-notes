@@ -199,7 +199,7 @@ Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaU
     - Introduced in ES6 (ECMAScript 2015)
 
 
-- Callback Functions:
+- Callback Functions: [pgm 1.6]
 
     - A callback is a function passed as an argument to another function.
     - JS is a synchronous and single-threaded language, but callbacks helps us to do asynchronous tasks.
@@ -274,7 +274,7 @@ Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaU
     even if the timer of the setTimeout expired long ago.)
 
 
-- Promises:
+- Promises: [pgm 1.7]
 
     - MDN defenition: A Promise is an object representing the eventual completion or failure of an asynchronous operation.
     - Used to handle async operations in JS.
@@ -290,6 +290,24 @@ Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaU
     - Promise objects are immutable.
     - Promises allow you to chain multiple asynchronous operations using .then() and .catch() methods. Chaining simplifies code structure and reducing callback nesting, making 
         the code more manageable and easier to understand.
+    - .catch() only catches errors that occur above it in the promise chain. If you place a .catch() at the end of the chain, it will catch all the errors that 
+        occur thorughout the entire chain.
     - Whenever there is a Promise inside a Promise chain, you may need to return that Promise again into the chain to ensure that data is not lost. This ensures 
         proper chaining and maintains the flow of data within the chain.
- 
+
+- Promsie APIs  
+    - Promise.all()
+        - Takes an iterable of Promises as input and returns as a single Promise.
+        - It waits for all of them to finish, and only then the Promise.all() is fulfilled.
+        - If any of the Promises get rejected, Promise.all() will throw an error and be rejected itself.
+
+
+- async await: [pgm 1.8]
+    
+    - async is a keyword that is used to define async functions.
+    - await can be only used inside an async function.
+    - async and await are used to handle Promsies.
+    - async functions ALWAYS returns a Promise. Even if you return a simple value like a string, it will be wrapped inside a Promise and returned.
+    - in an async await function, use try and catch for error handling.
+    - await does not block the call stack in any way. When encountered with an await code, the function execution is suspended, and then it resumes after 
+        the wait. During suspension, the call stack is not associated with the async function. Refer pgm 1.8 to know about multiple Promises handling.
