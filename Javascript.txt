@@ -295,12 +295,22 @@ Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaU
     - Whenever there is a Promise inside a Promise chain, you may need to return that Promise again into the chain to ensure that data is not lost. This ensures 
         proper chaining and maintains the flow of data within the chain.
 
-- Promsie APIs  
+
+- Promsie APIs: [pgm 1.7]
+
     - Promise.all()
         - Takes an iterable of Promises as input and returns as a single Promise.
         - It waits for all of them to finish, and only then the Promise.all() is fulfilled.
-        - If any of the Promises get rejected, Promise.all() will throw an error and be rejected itself.
+        - As soon as any of the Promises get rejected, Promise.all() will throw an error and be rejected itself. Subsequent Promises will not be considered.
+    
+    - Promise.allSettled()
+        - Similar to Promise.all(), but it waits for all Promises to be settled (resolved/ rejected) even if one promise throws an error. Finally, an array containing all settled values (including error objects) is returned.
 
+    - Promise.race()
+        - It returns the value of the first settled Promise regardless of whether it is fulfilled/ rejected. 
+
+    - Promise.any()
+        - It returns the value of the first successful (fulfilled) Promise and rejects only if all the Promises are rejected (aggregate error)
 
 - async await: [pgm 1.8]
     
@@ -311,3 +321,12 @@ Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaU
     - in an async await function, use try and catch for error handling.
     - await does not block the call stack in any way. When encountered with an await code, the function execution is suspended, and then it resumes after 
         the wait. During suspension, the call stack is not associated with the async function. Refer pgm 1.8 to know about multiple Promises handling.
+
+
+- 'this' keyword in JS: ('this' behaves differently in strict mode vs non-strict mode)
+
+    - this in global space 
+        - In global space, 'this' represents the global object. (In browsers the global object is the 'Window' object, in Node.js its 'global' object)
+
+    - this inside a function
+        - The value depends on strict/ non-strict mode.
