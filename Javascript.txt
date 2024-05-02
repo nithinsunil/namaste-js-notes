@@ -1,6 +1,57 @@
 Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP
 
 
+    JAVASCRIPT TOPICS TO KNOW BEFORE LEARNING REACT:
+
+        - Basics of JS
+            - Variables
+                - var
+                - let
+                - const
+            - Hoisting of Variables
+
+        - Functions
+            - Arrow Functions
+            - Higher Order Functions 
+        
+        - Arrays and objects
+            - Array Destructuring
+            - Object Destructuring
+            - Rest Operator
+            - Spread Operator
+
+        - Conditions in JS
+            - if else
+            - Ternary Operator
+            - Using && and ||
+            - Optional Chaining
+
+        - Array Methods
+            - map()
+            - filter()
+            - reduce()
+            - sort()
+
+        - Event Listeners
+            - onClick
+            - onBlur
+            - onChange
+            - onFocus
+        - setTimeout() & setInterval()
+
+        - Event bubbling & Capturing
+
+        - Asynchronous events
+            - Callbacks
+            - Callback Hell
+            - Promises
+            - Promise APIs
+
+        - Async/ await
+
+        - try...catch
+
+
 - IMPORTANT: Always put the script tag at the end of the HTML document. Otherwise the JS gets executed before it reaches the HTML part.
 
 - Everything in Javascript happens inside an Execution Context. (Imagine Execution Context is a big box in which whole js code is executed)
@@ -312,6 +363,7 @@ Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaU
     - Promise.any()
         - It returns the value of the first successful (fulfilled) Promise and rejects only if all the Promises are rejected (aggregate error)
 
+
 - async await: [pgm 1.8]
     
     - async is a keyword that is used to define async functions.
@@ -325,8 +377,29 @@ Course link - https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaU
 
 - 'this' keyword in JS: ('this' behaves differently in strict mode vs non-strict mode)
 
-    - this in global space 
-        - In global space, 'this' represents the global object. (In browsers the global object is the 'Window' object, in Node.js its 'global' object)
+    - 'this' in global space 
+        - In global space, 'this' represents the global object. (In browsers, the global object is the 'Window' object, in Node.js, its 'global' object and so on)
 
-    - this inside a function
+    - 'this' inside a function
         - The value depends on strict/ non-strict mode.
+        - In strict mode: 'this' -> undefined
+        - In non-strict mode: 'this' -> Window object
+        - 'this' substitution: If the value of 'this' keyword is undefined or null in NON-STRICT MODE, then it will be replaced with global object (Window object in this case)
+        - 'this' value depends on HOW THE FUNCTION IS CALLED (Window)
+            - In strict mode: 
+                Consider a function x() which logs 'this' value.
+                x(); -> logs undefined (calling without any reference of an object)
+                window.x(); -> logs Window object (calling with reference of Window object)
+
+    - 'this' inside an object's method (methods are simply the functions that are assigned as properties of objects)
+        - 'this' inside an object's method points to the object itself. 
+
+    - 'this' inside arrow function: [pgm 1.9]
+    
+    - 'this' inside DOM: [pgm 2.0]
+        - In the DOM context, 'this' refers to the HTML element that triggered the event.
+        
+    - 'this' and call, apply, bind methods: [pgm 2.1]
+
+
+
